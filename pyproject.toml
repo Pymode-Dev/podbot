@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "podbot"
+version = "0.1.0"
+description = ""
+authors = ["Pymode-Dev <pymode000@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+feedparser = "^6.0.10"
+pre-commit = "^3.2.2"
+black = "^23.3.0"
+pylint = "^2.17.3"
+mypy = "^1.2.0"
+requests = "^2.29.0"
+rich = "^13.3.5"
+music-tag = "^0.4.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

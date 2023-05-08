@@ -1,0 +1,27 @@
+result = feedparser.parse(url)
+result.entries - list
+- title, enclosures, authors
+
+
+date, title, podcast name,
+
+Features:
+- To check for new episodes in all saved podcasts
+- Add, Delete, and Surf Through a podcast
+- Download episode
+- Home page should show all saved podcasts
+- 
+
+
+To get a raw content from url
+
+query = requests.get(url)
+query.iter_content(chunk_size=128)
+
+
+To create an image from url
+
+PIL import Image
+io import BytesIO
+
+i = Image.open(BytesIO(query.content))

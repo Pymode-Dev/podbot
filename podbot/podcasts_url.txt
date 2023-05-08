@@ -1,0 +1,3 @@
+https://talkpython.fm/episodes/rss
+https://feeds.buzzsprout.com/1501156.rss
+https://feeds.fireside.fm/teachingpython/rss
