@@ -16,6 +16,12 @@ requests = "^2.29.0"
 rich = "^13.3.5"
 music-tag = "^0.4.3"
 
+[tool.poetry.dev-dependencies]
+black = "*"
+flake8 = "*"
+mypy = "*"
+pre-commit = "*"
+pytest = "*"
 
 [build-system]
 requires = ["poetry-core"]
