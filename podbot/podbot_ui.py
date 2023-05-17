@@ -1,32 +1,101 @@
-from rich.table import Table
+"""
+This handles the user interface in the terminal.
+Author: Pymode-dev
+"""
+
 from rich.console import Console
+from rich.table import Table
 
 
 class PodcastsTable:
-    def __init__(self, index: str, feed: str, author: str, data: list):
+    """
+    Class that handles UI of all podcast url the user save, if user want to
+    display all podcast present.
+    """
+
+    def __init__(self, index: str, feed: str, author: str, podcasts_data: list):
         self.index = index
         self.feed = feed
         self.author = author
-        self.data = data
-        self.console = Console()
-        self.table = Table()
+        self.data = podcasts_data
+        self.console = Console(soft_wrap=True)
+        self.table = Table(
+            style="blue",
+            caption="All Podcasts",
+            show_lines=True,
+            title="Podcasts",
+            caption_justify="left",
+            title_justify="left",
+        )
 
-    def display_podcasts(self):
+    def display_podcasts(self) -> None:
+        """
+        This display the table if the expected data is passed into it
+        :return: None
+        """
         self.table.add_column(self.index)
         self.table.add_column(self.feed)
         self.table.add_column(self.author)
-        
-        for i, data in enumerate(self.data, start=1):
-            feed = data.get('feed', 'None')
-            author = data.get('author', 'None')
-            self.table.add_row(str(i), feed, author)
+
+        for i, channels in enumerate(self.data, start=1):
+            index = str(i)
+            feed = channels.get("feed", "None")
+            author = channels.get("author", "None")
+            self.table.add_row(index, feed, author)
 
         self.console.print(self.table)
 
 
-data = [{'feed': 'Talk Python', 'author': 'Micheal Kennedy'},
-        {'feed': 'Dev Journey', 'author': 'Tim Bourgnion'},
-        {'feed': 'Pybites', 'author': 'Julian and Bob'},
-        {'feed': 'Python Bites'}]
-user = PodcastsTable('Index', 'Feed', 'Author', data)
-user.display_podcasts()
+class EpisodesTable:
+    """
+    This class the UI of episodes in a podcast channel.
+    """
+
+    def __init__(
+        self,
+        index: str,
+        date: str,
+        title: str,
+        guest: str,
+        duration: str,
+        data: list,
+        podcast: str,
+    ):
+        self.index = index
+        self.date = date
+        self.title = title
+        self.guest = guest
+        self.duration = duration
+        self.data = data
+        self.console = Console(soft_wrap=True)
+        self.table = Table(
+            style="blue",
+            caption="All Episodes",
+            show_lines=True,
+            title=f"{podcast.upper()}",
+            caption_justify="left",
+            title_justify="center",
+            title_style="blue",
+        )
+
+    def display_episodes(self) -> None:
+        """
+        This display the episodes if the expected data is passed into it.
+        :return: None
+        """
+        self.table.add_column(self.index)
+        self.table.add_column(self.date)
+        self.table.add_column(self.title)
+        self.table.add_column(self.guest)
+        self.table.add_column(self.duration)
+        length_of_episodes = len(self.data)
+
+        for i, episode in enumerate(self.data, start=1):
+            index = length_of_episodes - i
+            title = episode.get("title", "None").title()
+            guest = episode.get("guests", "None")[0].get("name", "None")
+            date = episode.get("date", "None")
+            duration = episode.get("duration", "None")
+            self.table.add_row(f"#{index}", date, title, guest, duration)
+
+        self.console.print(self.table)

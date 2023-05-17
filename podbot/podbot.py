@@ -1,56 +1,107 @@
+"""
+PodBot: This interacts with any rss feed pass into it.
+"""
+
+from pathlib import Path
+from typing import Final, List, Tuple
+
 import feedparser
 import requests
-from pathlib import Path
 from rich.console import Console
-from rich.table import Table
 from rich.progress import Progress
-from podreader import read_podcasts_url_from_file
+
+BYTE_TO_WRITE_PER_NSECONDS: Final = 100
+BYTE_CONVERSION_VALUE: Final = 1048576
+
+
+def _format_datetime(date_string: str) -> str:
+    return " ".join(date_string.split()[:4])
 
 
 class PodBot:
-    def __init__(self, url: str) -> None:
-        self.url = feedparser.parse(f"{url}")
+    """
+    PodBot: The podbot class that does every function included in it.
+    """
 
-    def get_podcast_properties(self):
-        feed_name, author = self.url.feed.title, self.url.feed.author
-        return feed_name, author
+    def __init__(self, podcast_url: str) -> None:
+        self.url = feedparser.parse(f"{podcast_url}")
+        self.console = Console()
 
-    def _format_datetime(self, date_string: str) -> str:
-        return ' '.join(date_string.split()[:4])
+    def get_podcast_properties(self) -> dict:
+        """
+        This get the properties of podcast url passed into it.
+        :return: dict
+        """
+        podcast_metadata = {
+            "feed": self.url.feed.get("title", "None"),
+            "author": self.url.feed.get("author", "None"),
+        }
+        return podcast_metadata
 
-    def get_podcast_content(self) -> list:
+    def get_podcast_content(self) -> List[dict]:
+        """
+        This get all episode in a podcast feed.
+        :return: List[dict]
+        """
         podcast_content: list = []
 
         for content in self.url.entries:
-            formatted_date = self._format_datetime(content.published)
-            main_content: dict = {"date": formatted_date, "title": content.title,
-                                  "duration": content.itunes_duration, 'guests': content.guests,
-                                  }
+            formatted_date = _format_datetime(content.published)
+            main_content: dict = {
+                "date": formatted_date,
+                "title": content.title,
+                "duration": content.itunes_duration,
+                "guests": content.authors,
+            }
             podcast_content.append(main_content)
 
-        return podcast_content
-    
+        return podcast_content, self.url.feed.get("title", "None")
+
     def get_download_link_to_download(self, index: int) -> str:
-        return self.url.entries[index].enclosures[0].get('href')
+        """
+        This extracts the download link of an episode.
+        :param index: int
+        :return: str
+        """
+        return self.url.entries[index].enclosures[0].get("href")
 
     def download_episode(self, index: int) -> None:
-        url: str = self.get_download_link_to_download(index)
-        filename: Path = self._format_title_to_file(index)
-        query = requests.get(url)
+        """
+        This download an episode which is retrieves through the index of an episode.
+        :param index: int
+        :return: None
+        """
+        episode_link_to_download: str = self.get_download_link_to_download(index)
+        filename, title = self._format_title_to_file(index)
+        query = requests.get(episode_link_to_download)
+        music_length = int(query.headers.get("content-length", 0))
+        mebibyte_length = music_length / BYTE_CONVERSION_VALUE
+        downloading_length = 0
 
-        with open(filename, mode='wb') as music:
-            for data_chunk in query.iter_content(chunk_size=1000):
-                music.write(data_chunk)
+        with Progress() as progress:
+            task = progress.add_task(f"{title}\n", total=music_length)
 
-    def _format_title_to_file(self, index: int) -> Path:
+            with open(filename, mode="wb") as music:
+                for data_chunk in query.iter_content(
+                    chunk_size=BYTE_TO_WRITE_PER_NSECONDS
+                ):
+                    downloading_length += (
+                        BYTE_TO_WRITE_PER_NSECONDS / BYTE_CONVERSION_VALUE
+                    )
+                    progress.update(
+                        task,
+                        advance=BYTE_TO_WRITE_PER_NSECONDS,
+                        description=f"{title}"
+                        f" \n{downloading_length:.2f}/{mebibyte_length:.2f}MB",
+                    )
+                    music.write(data_chunk)
+
+    def _format_title_to_file(self, index: int) -> Tuple[Path, str]:
+        """
+        This handles where the file will be saved to and clear format name
+        :param index: int
+        :return: Tuple[Path, str]
+        """
         title = self.url.entries[index].title
-        path = Path.home() / 'Music' / f'{title}.mp3'
-        return path
-
-
-url = read_podcasts_url_from_file()
-user = PodBot(url[1])
-
-
-f = feedparser.parse(url[0])
-print(f.entries)
+        path = Path.home() / "Music" / f"{title}.mp3"
+        return path, title

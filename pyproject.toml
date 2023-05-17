@@ -15,13 +15,9 @@ mypy = "^1.2.0"
 requests = "^2.29.0"
 rich = "^13.3.5"
 music-tag = "^0.4.3"
-
-[tool.poetry.dev-dependencies]
-black = "*"
-flake8 = "*"
-mypy = "*"
-pre-commit = "*"
-pytest = "*"
+isort = "^5.12.0"
+pyupgrade = "^3.4.0"
+types-requests = "^2.30.0.0"
 
 [build-system]
 requires = ["poetry-core"]

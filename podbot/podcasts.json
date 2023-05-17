@@ -1,0 +1,11 @@
+{
+  "podcasts": {
+    "talk python": "https://talkpython.fm/episodes/rss",
+    "pybite": "https://feeds.buzzsprout.com/1501156.rss",
+    "teaching python": "https://feeds.fireside.fm/teachingpython/rss",
+    "python bytes": "https://pythonbytes.fm/episodes/rss",
+    "dev journey": "https://feeds.buzzsprout.com/190346.rss",
+    "se radio": "https://seradio.libsyn.com/rss",
+    "infoq": "https://feeds.soundcloud.com/users/soundcloud:users:215740450/sounds.rss"
+  }
+}
