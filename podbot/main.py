@@ -2,6 +2,7 @@
 This module combine the user interface and the backend stuff together
 """
 
+from difflib import get_close_matches
 from typing import List
 
 from podbot_ui import EpisodesTable, PodcastsTable
@@ -28,7 +29,8 @@ def show_podcasts_table():
 
 def get_podcast_episodes(podcast_name: str) -> List[dict]:
     podcast_data = read_podcasts_from_json()
-    link: str = podcast_data.get(podcast_name, "None")
+    auto_complete_podcast = get_close_matches(podcast_name, list(podcast_data.keys()))
+    link: str = podcast_data.get("".join(auto_complete_podcast), "None")
     if link:
         podcast = PodBot(link)
         podcast_episodes = podcast.get_podcast_content()
@@ -45,7 +47,8 @@ def show_episodes_table(podcast_name: str):
 
 def download_episodes(podcast_name: str, episode_index: List[int]) -> None:
     podcast_data = read_podcasts_from_json()
-    link: str = podcast_data.get(podcast_name)
+    auto_complete_podcast = get_close_matches(podcast_name, list(podcast_data.keys()))
+    link: str = podcast_data.get("".join(auto_complete_podcast))
     podcast = PodBot(link)
     for i in episode_index:
         podcast.download_episode(i)
