@@ -404,6 +404,21 @@ files = [
 ]
 
 [[package]]
+name = "mpyg321"
+version = "2.1.1"
+description = "mpg321 wrapper for python - command line music player"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "mpyg321-2.1.1-py3-none-any.whl", hash = "sha256:717afdb84ddad4c3ee070d5f6e384695803f29b635861699483480f2f956e320"},
+    {file = "mpyg321-2.1.1.tar.gz", hash = "sha256:24ea90d2b61c634d8d56689d0b9c4d0b81677601a9885797ed6b3804afd284a6"},
+]
+
+[package.dependencies]
+pexpect = "*"
+
+[[package]]
 name = "music-tag"
 version = "0.4.3"
 description = "Simple interface to edit audio file metadata"
@@ -531,6 +546,36 @@ files = [
 ]
 
 [[package]]
+name = "perflint"
+version = "0.7.3"
+description = "Pylint extension with performance anti-patterns"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "perflint-0.7.3-py2.py3-none-any.whl", hash = "sha256:e556a82495925ec956ce607b6333564a54a6ebe2146fd47753d4b32aab82c85b"},
+    {file = "perflint-0.7.3.tar.gz", hash = "sha256:8569248d246c21974201b950af1330218ad058db285e2316cbb0044997d47554"},
+]
+
+[package.dependencies]
+pylint = ">=2.12.0,<3.0"
+
+[[package]]
+name = "pexpect"
+version = "4.8.0"
+description = "Pexpect allows easy control of interactive console applications."
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "pexpect-4.8.0-py2.py3-none-any.whl", hash = "sha256:0b48a55dcb3c05f3329815901ea4fc1537514d6ba867a152b581d69ae3710937"},
+    {file = "pexpect-4.8.0.tar.gz", hash = "sha256:fc65a43959d153d0114afe13997d439c22823a27cefceb5ff35c2178c6784c0c"},
+]
+
+[package.dependencies]
+ptyprocess = ">=0.5"
+
+[[package]]
 name = "platformdirs"
 version = "3.5.0"
 description = "A small Python package for determining appropriate platform-specific dirs, e.g. a \"user data dir\"."
@@ -564,6 +609,18 @@ identify = ">=1.0.0"
 nodeenv = ">=0.11.1"
 pyyaml = ">=5.1"
 virtualenv = ">=20.10.0"
+
+[[package]]
+name = "ptyprocess"
+version = "0.7.0"
+description = "Run a subprocess in a pseudo terminal"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "ptyprocess-0.7.0-py2.py3-none-any.whl", hash = "sha256:4b41f3967fce3af57cc7e94b888626c18bf37a083e3651ca8feeb66d492fef35"},
+    {file = "ptyprocess-0.7.0.tar.gz", hash = "sha256:5c5d0a3b48ceee0b48485e0c26037c0acd7d29765ca3fbb5cb3831d347423220"},
+]
 
 [[package]]
 name = "pygments"
@@ -945,4 +1002,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "e4c75b2f221baa5031a8388a60ebde1d3e6bbabfe59f4ada66a9df9c41f4d5fe"
+content-hash = "64b96764a13ceb00c054611d018a68159352a7c7960c678c9cfb71c1a6ffa3a8"
