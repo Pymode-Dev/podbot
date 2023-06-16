@@ -1,2 +1,5 @@
+podbot/__pycache__/
+*.pyc
+
 .idea
-./podbot/secrets.ini
+secrets.ini
