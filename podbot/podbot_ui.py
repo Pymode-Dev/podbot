@@ -3,10 +3,12 @@ This handles the user interface in the terminal.
 Author: Pymode-dev
 """
 
+from dataclasses import dataclass
 from rich.console import Console
 from rich.table import Table
 
 
+@dataclass
 class PodcastsTable:
     """
     Class that handles UI of all podcast url the user save, if user want to
@@ -89,11 +91,16 @@ class EpisodesTable:
         self.table.add_column(self.guest)
         self.table.add_column(self.duration)
         length_of_episodes = len(self.data)
+        guest = ""
 
-        for i, episode in enumerate(self.data, start=1):
-            index = length_of_episodes - i
+        for i, episode in enumerate(self.data, start=0):
+            index = i
             title = episode.get("title", "None").title()
-            guest = episode.get("guests", "None")[0].get("name", "None")
+            has_guest = episode.get("guests", "None")
+            if has_guest != "None":
+                guest = has_guest[0]["name"]
+            else:
+                guest = None
             date = episode.get("date", "None")
             duration = episode.get("duration", "None")
             self.table.add_row(f"#{index}", date, title, guest, duration)

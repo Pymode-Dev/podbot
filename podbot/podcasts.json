@@ -6,6 +6,12 @@
     "pythonbytes": "https://pythonbytes.fm/episodes/rss",
     "devjourney": "https://feeds.buzzsprout.com/190346.rss",
     "seradio": "https://seradio.libsyn.com/rss",
-    "infoq": "https://feeds.soundcloud.com/users/soundcloud:users:215740450/sounds.rss"
+    "infoq": "https://feeds.soundcloud.com/users/soundcloud:users:215740450/sounds.rss",
+    "realpython": "https://realpython.com/podcasts/rpp/feed",
+    "changelog": "https://changelog.com/shipit/feed",
+    "AWS": "https://d3gih7jbfe3jlq.cloudfront.net/aws-podcast.rss",
+    "swdaily": "https://softwareengineeringdaily.com/feed/podcast/",
+    "corecursive": "https://corecursive.libsyn.com/feed",
+    "pythonshow": "https://api.substack.com/feed/podcast/1662473/private/6f16c43f-7c0c-42a0-a8ae-1a4a1bca4377.rss"
   }
 }

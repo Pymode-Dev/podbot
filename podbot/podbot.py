@@ -1,6 +1,7 @@
 """
 PodBot: This interacts with any rss feed pass into it.
 """
+import sys
 
 from pathlib import Path
 from typing import Final, List, Tuple
@@ -38,6 +39,7 @@ class PodBot:
         }
         return podcast_metadata
 
+    @property
     def get_podcast_content(self) -> List[dict]:
         """
         This get all episode in a podcast feed.
@@ -51,7 +53,7 @@ class PodBot:
                 "date": formatted_date,
                 "title": content.title,
                 "duration": content.itunes_duration,
-                "guests": content.authors,
+                "guests": content.get("authors", "None"),
             }
             podcast_content.append(main_content)
 
@@ -63,7 +65,12 @@ class PodBot:
         :param index: int
         :return: str
         """
-        return self.url.entries[index].enclosures[0].get("href")
+        try:
+            episode_url = self.url.entries[index].enclosures[0].get("href")
+            return episode_url
+        except IndexError:
+            print("Invalid Episode or Podcast is not in your subscription")
+            sys.exit(0)
 
     def download_episode(self, index: int) -> None:
         """
