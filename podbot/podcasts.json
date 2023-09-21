@@ -12,6 +12,8 @@
     "AWS": "https://d3gih7jbfe3jlq.cloudfront.net/aws-podcast.rss",
     "swdaily": "https://softwareengineeringdaily.com/feed/podcast/",
     "corecursive": "https://corecursive.libsyn.com/feed",
-    "pythonshow": "https://api.substack.com/feed/podcast/1662473/private/6f16c43f-7c0c-42a0-a8ae-1a4a1bca4377.rss"
+    "sof": "https://feeds.simplecast.com/XA_851k3",
+    "sedaily": "https://softwareengineeringdaily.com/category/podcast/feed/",
+    "cmd": "https://feeds.pacific-content.com/commandlineheroes"
   }
 }

@@ -1,7 +1,0 @@
-https://talkpython.fm/episodes/rss
-https://feeds.buzzsprout.com/1501156.rss
-https://feeds.fireside.fm/teachingpython/rss
-https://pythonbytes.fm/episodes/rss
-https://feeds.buzzsprout.com/190346.rss
-https://seradio.libsyn.com/rss
-https://feeds.soundcloud.com/users/soundcloud:users:215740450/sounds.rss

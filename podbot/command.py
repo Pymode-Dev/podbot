@@ -28,7 +28,7 @@ class DisplayPodcast:
 
     def show_podcasts_table(self):
         podcasts_feed: List[dict] = self.get_all_podcasts_content()
-        podcast_user_interface = PodcastsTable("Index", "Feed", "Author", podcasts_feed)
+        podcast_user_interface = PodcastsTable(podcasts_feed)
         podcast_user_interface.display_podcasts()
 
     def execute(self):
@@ -42,7 +42,7 @@ class DisplayEpisode:
     def get_podcast_episodes(self, podcast_name: str) -> List[dict]:
         podcast_data = read_podcasts_from_json()
         auto_complete_podcast = get_close_matches(
-            podcast_name, list(podcast_data.keys())
+            podcast_name, list(podcast_data.keys()), n=1
         )
         link: str = podcast_data.get("".join(auto_complete_podcast), "None")
         if link:
@@ -52,9 +52,7 @@ class DisplayEpisode:
 
     def show_episodes_table(self, podcast_name: str):
         episodes, podcast = self.get_podcast_episodes(podcast_name)
-        episode_table = EpisodesTable(
-            "Index", "Date", "Title", "Guest", "Duration", episodes, podcast
-        )
+        episode_table = EpisodesTable(episodes, podcast)
         episode_table.display_episodes()
 
     def execute(self) -> str:

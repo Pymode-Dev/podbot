@@ -15,10 +15,7 @@ class PodcastsTable:
     display all podcast present.
     """
 
-    def __init__(self, index: str, feed: str, author: str, podcasts_data: list):
-        self.index = index
-        self.feed = feed
-        self.author = author
+    def __init__(self, podcasts_data: list):
         self.data = podcasts_data
         self.console = Console(soft_wrap=True)
         self.table = Table(
@@ -35,9 +32,9 @@ class PodcastsTable:
         This display the table if the expected data is passed into it
         :return: None
         """
-        self.table.add_column(self.index)
-        self.table.add_column(self.feed)
-        self.table.add_column(self.author)
+        self.table.add_column("Index")
+        self.table.add_column("Feed")
+        self.table.add_column("Author")
 
         for i, channels in enumerate(self.data, start=1):
             index = str(i)
@@ -55,19 +52,9 @@ class EpisodesTable:
 
     def __init__(
         self,
-        index: str,
-        date: str,
-        title: str,
-        guest: str,
-        duration: str,
         data: list,
         podcast: str,
     ):
-        self.index = index
-        self.date = date
-        self.title = title
-        self.guest = guest
-        self.duration = duration
         self.data = data
         self.console = Console(soft_wrap=True)
         self.table = Table(
@@ -85,11 +72,8 @@ class EpisodesTable:
         This display the episodes if the expected data is passed into it.
         :return: None
         """
-        self.table.add_column(self.index)
-        self.table.add_column(self.date)
-        self.table.add_column(self.title)
-        self.table.add_column(self.guest)
-        self.table.add_column(self.duration)
+        self.table.add_column("Index")
+        self.table.add_column("Title")
         length_of_episodes = len(self.data)
         guest = ""
 
