@@ -5,15 +5,15 @@ This module combine the user interface and the backend stuff together
 from difflib import get_close_matches
 from typing import List
 
-from .podbot_ui import EpisodesTable, PodcastsTable
-from .podreader import (
+from podbot_ui import EpisodesTable, PodcastsTable
+from podreader import (
     get_all_podcast_link,
     read_podcasts_from_json,
     delete_podcast_from_file,
     add_podcast_url_to_file,
 )
 
-from .podbot import PodBot
+from podbot import PodBot
 
 
 class DisplayPodcast:

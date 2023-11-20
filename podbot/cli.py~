@@ -3,8 +3,7 @@ import os
 from argparse import ArgumentParser
 from collections import OrderedDict
 
-from .command import (DisplayPodcast, DisplayEpisode, DownloadEpisode,
-        AddFeed, DeleteFeed)
+import command
 
 
 def parse_args():
@@ -91,11 +90,11 @@ def main():
 
     options = OrderedDict(
         {
-            "sp": Options(DisplayPodcast()),
-            "se": Options(DisplayEpisode(podcast_name)),
-            "d": Options(DownloadEpisode(podcast_name, episode)),
-            "delete": Options(DeleteFeed(podcast_name)),
-            "add": Options(AddFeed(podcast_name, url_feed)),
+            "sp": Options(command.DisplayPodcast()),
+            "se": Options(command.DisplayEpisode(podcast_name)),
+            "d": Options(command.DownloadEpisode(podcast_name, episode)),
+            "delete": Options(command.DeleteFeed(podcast_name)),
+            "add": Options(command.AddFeed(podcast_name, url_feed)),
         }
     )
     clear_screen()
