@@ -3,8 +3,13 @@ import os
 from argparse import ArgumentParser
 from collections import OrderedDict
 
-from .command import (DisplayPodcast, DisplayEpisode, DownloadEpisode,
-        AddFeed, DeleteFeed)
+from .command import (
+    DisplayPodcast,
+    DisplayEpisode,
+    DownloadEpisode,
+    AddFeed,
+    DeleteFeed,
+)
 
 
 def parse_args():
@@ -17,7 +22,7 @@ def parse_args():
 
     subparser = parser.add_subparsers(help="Command", dest="command")
 
-    show_podcast = subparser.add_parser(
+    show_podcast = subparser.add_parser(  # noqa: F841
         "sp", help="Show all available podcast you add."
     )
 

@@ -1,8 +1,6 @@
 """
 PodBot: This interacts with any rss feed pass into it.
 """
-import sys
-
 from pathlib import Path
 from typing import Final, List, Tuple
 
@@ -65,12 +63,8 @@ class PodBot:
         :param index: int
         :return: str
         """
-        try:
-            episode_url = self.url.entries[index].enclosures[0].get("href")
-            return episode_url
-        except IndexError:
-            print("Invalid Episode or Podcast is not in your subscription")
-            sys.exit(0)
+        episode_url = self.url.entries[index].enclosures[0].get("href")
+        return episode_url
 
     def download_episode(self, index: int) -> None:
         """
@@ -79,7 +73,8 @@ class PodBot:
         :return: None
         """
         episode_link_to_download: str = self.get_download_link_to_download(index)
-        filename, title = self._format_title_to_file(index)
+        title = self._format_title_to_file(index)
+        filename = self._save_path(episode_link_to_download)
         query = requests.get(episode_link_to_download, stream=True)
         music_length = int(query.headers.get("content-length", 0))
         mebibyte_length = music_length / BYTE_CONVERSION_VALUE
@@ -110,5 +105,18 @@ class PodBot:
         :return: Tuple[Path, str]
         """
         title = self.url.entries[index].title
-        path = Path.home() / "Music" / f"{title}.mp3"
-        return path, title
+        return title
+
+    def _save_path(self, download_link: str) -> Path:
+        import re
+
+        url = download_link
+        pattern = r"/(\d+-[\w-]+\.mp3)$"
+
+        match = re.search(pattern, url)
+
+        if match:
+            result = match.group(1)
+
+        path = Path.home() / "Music" / f"{result}"
+        return path

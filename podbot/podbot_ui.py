@@ -74,17 +74,13 @@ class EpisodesTable:
         """
         self.table.add_column("Index")
         self.table.add_column("Title")
-        length_of_episodes = len(self.data)
-        guest = ""
 
         for i, episode in enumerate(self.data, start=0):
             index = i
             title = episode.get("title", "None").title()
             has_guest = episode.get("guests", "None")
             if has_guest != "None":
-                guest = has_guest[0]["name"]
-            else:
-                guest = None
+                guest = has_guest[0].get("name", "None")
             date = episode.get("date", "None")
             duration = episode.get("duration", "None")
             self.table.add_row(f"#{index}", date, title, guest, duration)
