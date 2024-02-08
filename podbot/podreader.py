@@ -2,7 +2,6 @@
 This module handles all the podcast link save by the user
 """
 
-import functools
 import json
 from pathlib import Path
 from typing import List, Dict

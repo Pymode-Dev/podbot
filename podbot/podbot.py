@@ -73,8 +73,7 @@ class PodBot:
         :return: None
         """
         episode_link_to_download: str = self.get_download_link_to_download(index)
-        title = self._format_title_to_file(index)
-        filename = self._save_path(episode_link_to_download)
+        filename, title = self._format_title_to_file(index)
         query = requests.get(episode_link_to_download, stream=True)
         music_length = int(query.headers.get("content-length", 0))
         mebibyte_length = music_length / BYTE_CONVERSION_VALUE
@@ -104,19 +103,6 @@ class PodBot:
         :param index: int
         :return: Tuple[Path, str]
         """
-        title = self.url.entries[index].title
-        return title
-
-    def _save_path(self, download_link: str) -> Path:
-        import re
-
-        url = download_link
-        pattern = r"/(\d+-[\w-]+\.mp3)$"
-
-        match = re.search(pattern, url)
-
-        if match:
-            result = match.group(1)
-
-        path = Path.home() / "Music" / f"{result}"
-        return path
+        title: str = self.url.entries[index].title
+        path: Path = Path.home() / "Music" / f"{title}.mp3"
+        return path, title

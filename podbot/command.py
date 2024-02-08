@@ -2,7 +2,6 @@
 This module combine the user interface and the backend stuff together
 """
 
-from difflib import get_close_matches
 from typing import List
 
 from .podbot_ui import EpisodesTable, PodcastsTable
@@ -40,11 +39,7 @@ class DisplayEpisode:
         self.name = name
 
     def get_podcast_episodes(self, podcast_name: str) -> List[dict]:
-        podcast_data = read_podcasts_from_json()
-        auto_complete_podcast = get_close_matches(
-            podcast_name, list(podcast_data.keys()), n=1
-        )
-        link: str = podcast_data.get("".join(auto_complete_podcast), "None")
+        link = read_podcasts_from_json()[podcast_name]
         if link:
             podcast = PodBot(link)
             podcast_episodes = podcast.get_podcast_content
@@ -65,18 +60,14 @@ class DownloadEpisode:
         self.index = index
 
     def download_episodes(self, podcast_name: str, episode_index: List[int]) -> None:
-        podcast_data = read_podcasts_from_json()
-        auto_complete_podcast = get_close_matches(
-            podcast_name, list(podcast_data.keys())
-        )
-        link: str = podcast_data.get("".join(auto_complete_podcast))
+        link = read_podcasts_from_json()[podcast_name]
         podcast = PodBot(link)
         for i in episode_index:
             podcast.download_episode(i)
 
     def execute(self) -> str:
         self.download_episodes(self.name, self.index)
-        return f"Download Successfully"
+        return "Download Successfully"
 
 
 class DeleteFeed:
